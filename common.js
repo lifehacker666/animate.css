@@ -1,219 +1,130 @@
 ﻿$(function(){
 
-    $.getScript( 'waypoints.min.js', function() { // подлкючаем плагин waypoints
+    /* CSS3 анимации */
+    //определяем анимации для всех анимируемых блоков
+    var animations = {
+        "animated-block-container":{
+            //скролл сверху вниз CSS3
+            down:function($this){
+                $this.find('.item')
+                    .removeClass('fadeOut')
+                    .addClass('fadeInDown');
+            },
+            //скролл сверху вниз IE9
+            ie9Down:function($this){
+                elementVisibility($this.find('.item'));
 
-        //контейнер с анимационными блоками
-        $('.animation-block')
-            // случай, когда скроллим сверху вниз и офсет блока-контенера равен 80%
-            .waypoint( function (dir) {
+                //if ie9. используем .animate()
+                var positionY = 150;
+                $this.find('.item')
+                    .css('top', -positionY )
+                    .stop()
+                    .animate({
+                        opacity: 1,
+                        top: '+='+positionY
+                    }, 500);
+            },
+            //скролл сверху вниз IE8
+            ie8Down:function($this){
+                elementVisibility($this.find('.item'));
+            },
 
-                if (dir === 'down') { //скролл вниз
+            //скролл снизу вверх CSS3
+            up:function($this){
+                elementVisibility($this.find('.item'));
 
-                    //если браузер поддерживает css3 анимации
-                    if (Modernizr.cssanimations) {
+                $this.find('.item')
+                    .removeClass('fadeInDown')
+                    .addClass('fadeOut');
+            },
+            //скролл снизу вверх IE9
+            ie9Up:function($this){
+                $this.find('.item')
+                    .stop()
+                    .animate({
+                        opacity: 0
+                    }, 500);
+            },
+            //скролл снизу вверх IE8
+            ie8Up:function($this){
+                elementVisibility($this.find('.item'));
+            }
+        }
+    };
 
-                        $(this).find('.item1')
-                            .removeClass('fadeOut')
-                            .addClass('fadeInDown');
-
-                        $(this).find('.item2')
-                            .removeClass('fadeOut')
-                            .addClass('fadeInDown');
-
-                        $(this).find('.item3')
-                            .removeClass('fadeOut')
-                            .addClass('fadeInDown');
-
-                    } else if (Modernizr.opacity)  {
-                        //if ie9. используем .animate()
-                        prepareElementForAnimate($(this));
-
-                        var positionY = 150;
-                        $(this).find('.item1')
-                            .css('top', -positionY )
-                            .stop()
-                            .animate({
-                                opacity: 1,
-                                top: '+='+positionY
-                            }, 500);
-
-                        $(this).find('.item2')
-                            .css('top', -positionY )
-                            .stop()
-                            .animate({
-                                opacity: 1,
-                                top: '+='+positionY
-                            }, 800);
-
-                        $(this).find('.item3')
-                            .css('top', -positionY )
-                            .stop()
-                            .animate({
-                                opacity: 1,
-                                top: '+='+positionY
-                            }, 1100);
-                    } else {
-                        //если это ie8, просто показываем элемент
-                        ie8notAnimate($(this).find('.item1, .item2, .item3'));
-                    }
-
-                }
-                else { //скролл вверх
-                    if (Modernizr.cssanimations) {
-
-                        $(this).find('.item1')
-                            .removeClass('fadeInDown')
-                            .addClass('fadeOut');
-
-                        $(this).find('.item2')
-                            .removeClass('fadeInDown')
-                            .addClass('fadeOut');
-
-                        $(this).find('.item3')
-                            .removeClass('fadeInDown')
-                            .addClass('fadeOut');
-
-                    } else if (Modernizr.opacity)  {
-                        // if ie9. используем .animate()
-
-                        $(this).find('.item1, .item2, .item3')
-                            .stop()
-                            .animate({
-                                opacity: 0
-                            }, 500);
-                    } else {
-                        //if ie8 (ie8 не поддерживает нормально opacity)
-                        ie8notAnimate($(this).find('.item1, .item2, .item3'));
-                    }
-                }
-
-            }, {
-                offset: '80%'
-            })
-            // случай, когда скроллим снизу вверх и офсет блока-контенера равен чуть меньше его высоты
-            // (анимации как в предыдущем случае, но наоборот)
+    //подключаем waypoint к блоку, в котором находятся анимируемые эл-ты
+    $('#block1, #block2, #block3')
+        //оффсет 80%
         .waypoint( function (dir) {
 
-            if (dir === 'down') { //скролл вниз
-
-                if (Modernizr.cssanimations) {
-
-                    $(this).find('.item1')
-                        .removeClass('fadeInDown')
-                        .addClass('fadeOut');
-
-                    $(this).find('.item2')
-                        .removeClass('fadeInDown')
-                        .addClass('fadeOut');
-
-                    $(this).find('.item3')
-                        .removeClass('fadeInDown')
-                        .addClass('fadeOut');
-
-                } else if (Modernizr.opacity)  {
-                    //if ie9. используем .animate()
-
-                    $(this).find('.item1, .item2, .item3')
-                        .stop()
-                        .animate({
-                            opacity: 0
-                        }, 500);
-                } else {
-                    //if ie8 (ie8 не поддерживает нормально opacity)
-                    ie8notAnimate($(this).find('.item1, .item2, .item3'));
-                }
-
+            if (dir === 'down') { //скролл сверху вниз
+                differentBrowsersDown($(this));
             }
-            else { //скролл вверх
-
-                //если браузер поддерживает css3 анимации
-                if (Modernizr.cssanimations) {
-
-                    $(this).find('.item1')
-                        .removeClass('fadeOut')
-                        .addClass('fadeInDown');
-
-                    $(this).find('.item2')
-                        .removeClass('fadeOut')
-                        .addClass('fadeInDown');
-
-                    $(this).find('.item3')
-                        .removeClass('fadeOut')
-                        .addClass('fadeInDown');
-
-                } else if (Modernizr.opacity)  {
-                    //if ie9. используем .animate()
-                    prepareElementForAnimate($(this));
-
-                    var positionY = 150;
-                    $(this).find('.item1')
-                        .css('top', -positionY )
-                        .stop()
-                        .animate({
-                            opacity: 1,
-                            top: '+='+positionY
-                        }, 500);
-
-                    $(this).find('.item2')
-                        .css('top', -positionY )
-                        .stop()
-                        .animate({
-                            opacity: 1,
-                            top: '+='+positionY
-                        }, 800);
-
-                    $(this).find('.item3')
-                        .css('top', -positionY )
-                        .stop()
-                        .animate({
-                            opacity: 1,
-                            top: '+='+positionY
-                        }, 1100);
-                } else {
-                    //if ie8 (ie8 не поддерживает нормально opacity)
-                    ie8notAnimate($(this).find('.item1, .item2, .item3'));
-                }
-
+            else { //скролл снизу вверх
+                differentBrowsersUp($(this));
             }
 
         }, {
-            offset: -100
-        });
+            offset: '80%'
+        })
+        //350px от нижнего края
+        .waypoint( function (dir) {
 
-    });
+            if (dir === 'down') { //скролл вниз
+                differentBrowsersUp($(this));
+            }
+            else { //скролл вверх
+                differentBrowsersDown($(this));
+            }
 
-    function prepareElementForAnimate(thisAnimationContainer) {
-        var $this;
-
-        if (thisAnimationContainer.hasClass('animated')){
-
-            //если переданный в ф-ю элемент сам является анимимруемым, т.е имеет класс animated
-            $this = thisAnimationContainer;
-        } else {
-
-            //если переданный в ф-ю элемент не является анимимруемым, то ищем анимируемые эл-ты в нем
-            $this = thisAnimationContainer.find('.animated');
-        }
-
-        $this.each(function () {
-            //устанавливаем непрозрачность 0
-            $(this).css( {
-                'visibility' : 'visible',
-                'opacity': 0
-            });
-
-            //чтоб ф-я animate работала, задаем position relative для тех элементов, у кого она не absolute и изначаьно не retative
-            if ($(this).css("position") != 'absolute' && $(this).css("position") != 'relative') {
-                $(this).css(
-                    {"position": "relative"}
-                );
+        }, {
+            offset: function() {
+                //высота блока-контейнера с анимациями минус высота хедера и еще 100px
+                return - $(this).outerHeight() + $('header').height() + 100;
             }
         });
+
+    // вызов функций анимации в зависимости от возможностей браузера (down)
+    function differentBrowsersDown($this){
+        if (Modernizr.cssanimations) {
+            animations[$this.attr("data-key")].down($this);
+
+        } else if (Modernizr.opacity)  {
+            animations[$this.attr("data-key")].ie9Down($this);
+        } else {
+            animations[$this.attr("data-key")].ie8Down($this);
+        }
     }
 
-    function ie8notAnimate($this){
-        //ie8 не поддерживает нормально opacity, поэтому просто показываем элемент, без анимации
+    // вызов функций анимации в зависимости от возможностей браузера (up)
+    function differentBrowsersUp($this){
+        if (Modernizr.cssanimations) {
+            animations[$this.attr("data-key")].up($this);
+
+        } else if (Modernizr.opacity)  {
+            animations[$this.attr("data-key")].ie9Up($this);
+        } else {
+            animations[$this.attr("data-key")].ie8Up($this);
+        }
+    }
+
+    //просто показываем элемент, без анимации
+    function elementVisibility($this){
         $this.css('visibility','visible');
     }
+
+    //зацикленная анимация
+    var logo = $('header .logo');
+    elementVisibility(logo);
+
+    setInterval(function() {
+
+        logo.removeClass('flip');
+        setTimeout(function() {
+            logo.addClass('flip');
+        }, 100);
+
+    }, 7000);
+    /* /CSS3 анимации */
 
 }); // END READY

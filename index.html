@@ -84,17 +84,17 @@
         }
 
         /* Можно указать скорость анимации и др параметры */
-        .animation-block .item.fadeInDown:nth-child(1){
+        .item.fadeInDown:nth-child(1){
             -webkit-animation-duration: 0.5s;
             animation-duration:  0.5s;
         }
 
-        .animation-block .item.fadeInDown:nth-child(2){
+        .item.fadeInDown:nth-child(2){
             -webkit-animation-duration: 0.8s;
             animation-duration:  0.8s;
         }
 
-        .animation-block .item.fadeInDown:nth-child(3){
+       .item.fadeInDown:nth-child(3){
             -webkit-animation-duration: 1.1s;
             animation-duration:  1.1s;
         }
@@ -117,15 +117,13 @@
             -webkit-transform: translate3d(0, 0, 0);
             transform        : translate3d(0, 0, 0);
         }
+
+        .logo{
+            width: 100px;
+            height: 100px;
+            background: #338077;
+        }
     </style>
-
-    <script>
-        $(function(){
-
-
-
-        });
-    </script>
 
 </head>
 
@@ -133,7 +131,9 @@
 
    <div id="overflow_div">
 
-       <header></header>
+       <header>
+           <div class="logo animated"></div>
+       </header>
 
        <div class="content-wraper">
            <div class="content">
@@ -149,7 +149,7 @@
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur deleniti error ex in, laboriosam laudantium neque quaerat rerum? Assumenda atque enim ipsam iste minima soluta tenetur totam. Repellat, tempora!
                 </div>
 
-                <div class="block animation-block">
+                <div class="block" id="block1" data-key="animated-block-container">
                     <div class="item item1 animated">
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit
                     </div>
@@ -161,7 +161,7 @@
                     </div>
                 </div>
 
-               <div class="block animation-block">
+               <div class="block" id="block2" data-key="animated-block-container">
                    <div class="item item1 animated">
                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
                    </div>
@@ -195,7 +195,7 @@
                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam aspernatur deleniti error ex in, laboriosam laudantium neque quaerat rerum? Assumenda atque enim ipsam iste minima soluta tenetur totam. Repellat, tempora!
                </div>
 
-               <div class="block animation-block">
+               <div class="block" id="block3" data-key="animated-block-container">
                    <div class="item item1 animated">
                        Lorem ipsum dolor sit amet, consectetur adipisicing elit
                    </div>
