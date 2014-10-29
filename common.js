@@ -1,5 +1,49 @@
 ﻿$(function(){
 
+    /* Верхнее меню */
+    var navLi = $('.menu-top ul > li > a');
+
+    $('.block').waypoint( function () {
+        var hash = $(this).attr('id');
+
+        navLi.parent().removeClass('selected');
+
+        $.each( navLi, function() {
+            if ( $(this).attr('href').slice(1) === hash ){
+                $(this).parent().addClass('selected');
+            }
+        });
+    }, {
+        offset: $('header').height()
+    });
+
+    $('.block').waypoint( function () {
+        var hash = $(this).attr('id');
+
+        navLi.parent().removeClass('selected');
+
+        $.each( navLi, function() {
+            if ( $(this).attr('href').slice(1) === hash ){
+                $(this).parent().addClass('selected');
+            }
+        });
+    }, {
+        offset: function() {
+            return - $(this).outerHeight() + $('header').height();
+        }
+    });
+
+    //плавный скролл
+    navLi.click(function (e) {
+
+        var elementClick = $(this).attr("href"),
+            destination = $(elementClick).offset().top,
+            offset = $('header').height();
+
+        $('html, body').animate( { scrollTop: destination - offset }, 800 );
+    });
+    /* /Верхнее меню */
+
     /* CSS3 анимации */
     //определяем анимации для всех анимируемых блоков
     var animations = {
