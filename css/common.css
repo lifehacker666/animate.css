@@ -216,4 +216,24 @@ header{
     height: 100px;
     background: #338077;
 }
+
+.sticky-element{
+    position: relative;
+    top: 100px;
+    left: -100px;
+    width: 100px;
+    height: 100px;
+    background: indianred;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+/*класс для элемента в фиксированном виде*/
+.sticky-element.stuck{
+    position: fixed;
+    top:100px;
+    left: 50%;
+    margin-left: -600px;
+}
 /*---------/CSS 3 ANIMATES------------*/
