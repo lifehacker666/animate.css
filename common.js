@@ -90,14 +90,14 @@
 
             //скролл снизу вверх CSS3
             up:function($this){
-                elementVisibility($this.find('.item'));
-
                 $this.find('.item')
                     .removeClass('fadeInDown')
                     .addClass('fadeOut');
             },
             //скролл снизу вверх IE9
             ie9Up:function($this){
+                elementVisibility($this.find('.item'));
+                
                 $this.find('.item')
                     .stop()
                     .animate({
