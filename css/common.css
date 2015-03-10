@@ -27,24 +27,51 @@ h2{
     position: relative;
     width: 100%;
     min-width: 1000px;
-    min-height: 100%;
     overflow: hidden;
+    margin-top: 100px;
+
+    background: #afd9bf;
 }
 
 .content-wraper {
     position: relative;
-    background: #bbf1a1;
 }
 
 .content {
     position: relative;
     margin: 0 auto;
     width: 1000px;
-    background: linear-gradient(to top, #2d4efe, #66e3f1);
-    background-color: #2d4efe;
-    margin-top: 100px;
+    background: #c9f4da;
 }
 /*---------/STANDART STYLES*------------*/
+
+
+/*---------HEADER------------*/
+header.content-wraper{
+    top: 0;
+    left: 0;
+    position: fixed;
+    width: 100%;
+    height: 100px;
+    background: #658397;
+    z-index: 99;
+
+    /*чтоб не дергался фиксированный хедер*/
+    -webkit-transform: translate3d(0, 0, 0);
+    transform        : translate3d(0, 0, 0);
+}
+
+header .content{
+    background: #a1d2e8;
+}
+
+header .logo{
+    float: left;
+    width: 100px;
+    height: 100px;
+    background: #338077;
+}
+/*---------/HEADER------------*/
 
 
 /*---------MENU-TOP------------*/
@@ -140,11 +167,12 @@ h2{
 /*---------/sub menu-top------------*/
 /*---------/MENU-TOP------------*/
 
+
 /*---------CSS 3 ANIMATES------------*/
 .block{
     font-size: 25px;
     padding: 30px 20px;
-    margin: 50px 0;
+    margin-bottom: 50px;
     text-align: justify;
     background: #f6f6f6;
 }
@@ -196,33 +224,10 @@ h2{
     visibility: visible;
 }
 
-header{
-    top: 0;
-    left: 0;
-    position: fixed;
-    width: 100%;
-    height: 100px;
-    background: green;
-    z-index: 99;
-
-    /*чтоб не дергался фиксированный хедер*/
-    -webkit-transform: translate3d(0, 0, 0);
-    transform        : translate3d(0, 0, 0);
-}
-
-.logo{
-    float: left;
-    width: 100px;
-    height: 100px;
-    background: #338077;
-}
-
 .sticky-element{
     position: relative;
-    top: 100px;
-    left: -100px;
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     background: indianred;
     color: #fff;
     text-align: center;
@@ -234,6 +239,6 @@ header{
     position: fixed;
     top:100px;
     left: 50%;
-    margin-left: -600px;
+    margin-left: -500px;
 }
 /*---------/CSS 3 ANIMATES------------*/
